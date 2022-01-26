@@ -14,6 +14,13 @@
 	background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
 }
 
+.searched-city:hover {
+	cursor: pointer;
+	color: #0275d8;
+	font-weight: bold;
+	/* border-bottom: 1px solid #005b8f; */
+}
+
 .App-logo {
 	height: 40vmin;
 	pointer-events: none;

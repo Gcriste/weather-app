@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-const Search = ({ handleSearch, handleChange }) => {
+const Search = ({ handleSearch, handleChange, cityName, handleKeyDown }) => {
 	return (
 		<>
 			<Container>
@@ -16,11 +16,14 @@ const Search = ({ handleSearch, handleChange }) => {
 							<InputGroup.Text>Search for a city</InputGroup.Text>
 							<FormControl
 								onChange={(e) => handleChange(e)}
-								// value={this.state.cityName}
+								onKeyDown={(e) => handleKeyDown(e)}
+								value={cityName}
 								aria-label='city-name'
 								placeholder='Ex: Nashville'
 							/>
-							<Button onClick={handleSearch}>Search</Button>
+							<Button variant='success' onClick={handleSearch}>
+								Search
+							</Button>
 						</InputGroup>
 					</Col>
 				</Row>

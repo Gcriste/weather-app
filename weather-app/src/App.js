@@ -4,6 +4,7 @@ import Header from './Components/Header';
 import Search from './Components/Search';
 import FirstRow from './Components/FirstRow';
 import List from './Components/List';
+import ModalContainer from './Components/ModalContainer';
 
 import './App.css';
 
@@ -19,21 +20,59 @@ const App = () => {
 	const [weatherFirstData, setWeatherFirstData] = useState('');
 	const [previouslySearchedCity, setPreviouslySearchedCity] = useState([weatherFirstData]);
 	const [weatherAllData, setWeatherAllData] = useState('');
-	const apiKey = '58de0acb5a7de5b2d7ed2c6cbf971820';
+	const [showModal, setShowModal] = useState(false);
+	const [containerClassName, setContainerClassName] = useState('');
+
+	const apiKey = 'c9a9ed03a355403f4cb9a36e931c0b4a';
 
 	const handleChange = (e) => {
 		setCityName(e.target.value);
 	};
+
+	const handleKeyDown = (e) => {
+		if (e.key === 'Enter') {
+			console.log('click');
+			handleSearch();
+		}
+		console.log(e);
+	};
 	const handleSearch = () => {
-		fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&cnt=${6}&appid=${apiKey}&units=imperial`)
+		cityName
+			? fetch(
+					`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&cnt=${6}&appid=${apiKey}&units=imperial`
+			  )
+					.then((response) => response.json())
+					.then((data) => setWeatherFirstData(data))
+			: setShowModal(true);
+		setCityName('');
+	};
+
+	const handleClose = () => setShowModal(false);
+
+	const handleClickCity = (e) => {
+		let city = e.target.textContent;
+		fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=${6}&appid=${apiKey}&units=imperial`)
 			.then((response) => response.json())
 			.then((data) => setWeatherFirstData(data));
 	};
 
 	useEffect(() => {
-		if (weatherFirstData) {
+		if (weatherFirstData && weatherFirstData.cod !== '404') {
 			callOtherRequest();
 			setPreviouslySearchedCity([...previouslySearchedCity, weatherFirstData.city.name]);
+			let noDuplicateCities = previouslySearchedCity ? [...new Set(previouslySearchedCity)] : [];
+			localStorage.setItem('cities', JSON.stringify(noDuplicateCities));
+			const weatherConditions = weatherFirstData.list[0].weather[0].description;
+			if (weatherConditions) {
+				weatherConditions === 'clear sky'
+					? setContainerClassName('clear-sky')
+					: weatherConditions === 'cloudy'
+					? setContainerClassName('cloudy')
+					: setContainerClassName('rainy');
+			}
+		} else if (weatherFirstData.cod === '404') {
+			setShowModal(true);
+			setCityName('');
 		}
 	}, [weatherFirstData]);
 
@@ -44,14 +83,6 @@ const App = () => {
 			.then((response) => response.json())
 			.then((data) => setWeatherAllData(data));
 	};
-	const weatherConditions = weatherFirstData ? weatherFirstData.list[0].weather[0].description : '';
-	const containerClass = weatherFirstData
-		? weatherConditions === 'clear sky'
-			? 'clear-sky'
-			: weatherConditions === 'cloudy'
-			? 'cloudy'
-			: 'rainy'
-		: '';
 
 	// useEffect(() => {
 	// 	console.log(responseData);
@@ -59,11 +90,21 @@ const App = () => {
 	// }, [weatherFirstData]);
 
 	return (
-		<Container className={containerClass}>
+		<Container className={containerClassName}>
 			<Container className='p-3'>
 				<Header />
-				<Search handleSearch={handleSearch} handleChange={handleChange} />
-				<FirstRow weatherData={weatherFirstData} previouslySearchedCities={previouslySearchedCity} />
+				<Search
+					handleKeyDown={handleKeyDown}
+					handleSearch={handleSearch}
+					handleChange={handleChange}
+					cityName={cityName}
+				/>
+				<FirstRow
+					weatherData={weatherFirstData}
+					previouslySearchedCities={previouslySearchedCity}
+					handleClickCity={(e) => handleClickCity(e)}
+				/>
+				{showModal ? <ModalContainer show={showModal} handleClose={handleClose} /> : null}
 				<List weatherData={weatherAllData} />
 			</Container>
 		</Container>

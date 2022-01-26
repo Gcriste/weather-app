@@ -5,8 +5,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './Component.css';
 
-const FirstRow = ({ weatherData, previouslySearchedCities }) => {
-	return weatherData ? (
+const FirstRow = ({ weatherData, previouslySearchedCities, handleClickCity }) => {
+	let noDuplicateCities = previouslySearchedCities ? [...new Set(previouslySearchedCities)] : [];
+	let cityName =
+		weatherData && weatherData?.city?.name ? `http://www.google.com/search?q=${weatherData.city.name}` : '#';
+	return weatherData && weatherData?.list?.[0].weather?.[0].description ? (
 		<>
 			<Container>
 				<Row>
@@ -20,16 +23,27 @@ const FirstRow = ({ weatherData, previouslySearchedCities }) => {
 								<Card.Text>Current temperature: {weatherData.list[0].main.temp} &#8457;</Card.Text>
 								<Card.Text>Wind Speed: {weatherData.list[0].wind.speed} mph</Card.Text>
 								{/* <Card.Text>Date: {weatherData[0].date}</Card.Text> */}
-								<Card.Link href='#'>Another Link</Card.Link>
+								<Card.Link href={cityName} target='_blank'>
+									Find out more about the city
+								</Card.Link>
 							</Card.Body>
 						</Card>
 					</Col>
-					<Col sm={4}>
+					<Col className='first-row-container' sm={4}>
 						<Card>
 							<Card.Body>
 								<Card.Title>Previously Searched Cities</Card.Title>
-								{previouslySearchedCities.length
-									? previouslySearchedCities.map((item) => <Card.Text>{item}</Card.Text>)
+								{noDuplicateCities.length
+									? noDuplicateCities.map((item) => (
+											<Card.Text
+												className='searched-city'
+												onClick={(e) => handleClickCity(e)}
+												value={item}
+												key={item}
+											>
+												{item}
+											</Card.Text>
+									  ))
 									: ''}
 							</Card.Body>
 						</Card>

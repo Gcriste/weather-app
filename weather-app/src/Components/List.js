@@ -7,7 +7,7 @@ import './Component.css';
 import { fromUnixTime, format } from 'date-fns';
 
 const List = ({ weatherData }) => {
-	return weatherData ? (
+	return weatherData && weatherData?.daily?.length ? (
 		<>
 			<Container>
 				<Row>
