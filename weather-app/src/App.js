@@ -17,6 +17,7 @@ const App = () => {
 	// ];
 	const [cityName, setCityName] = useState('');
 	const [weatherFirstData, setWeatherFirstData] = useState('');
+	const [previouslySearchedCity, setPreviouslySearchedCity] = useState([weatherFirstData]);
 	const [weatherAllData, setWeatherAllData] = useState('');
 	const apiKey = '58de0acb5a7de5b2d7ed2c6cbf971820';
 
@@ -32,6 +33,7 @@ const App = () => {
 	useEffect(() => {
 		if (weatherFirstData) {
 			callOtherRequest();
+			setPreviouslySearchedCity([...previouslySearchedCity, weatherFirstData.city.name]);
 		}
 	}, [weatherFirstData]);
 
@@ -42,6 +44,14 @@ const App = () => {
 			.then((response) => response.json())
 			.then((data) => setWeatherAllData(data));
 	};
+	const weatherConditions = weatherFirstData ? weatherFirstData.list[0].weather[0].description : '';
+	const containerClass = weatherFirstData
+		? weatherConditions === 'clear sky'
+			? 'clear-sky'
+			: weatherConditions === 'cloudy'
+			? 'cloudy'
+			: 'rainy'
+		: '';
 
 	// useEffect(() => {
 	// 	console.log(responseData);
@@ -49,11 +59,13 @@ const App = () => {
 	// }, [weatherFirstData]);
 
 	return (
-		<Container className='p-3'>
-			<Header />
-			<Search handleSearch={handleSearch} handleChange={handleChange} />
-			<FirstRow weatherData={weatherFirstData} />
-			<List weatherData={weatherAllData} />
+		<Container className={containerClass}>
+			<Container className='p-3'>
+				<Header />
+				<Search handleSearch={handleSearch} handleChange={handleChange} />
+				<FirstRow weatherData={weatherFirstData} previouslySearchedCities={previouslySearchedCity} />
+				<List weatherData={weatherAllData} />
+			</Container>
 		</Container>
 	);
 };
