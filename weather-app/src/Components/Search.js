@@ -20,10 +20,8 @@ const Search = ({ handleSearch, handleChange }) => {
 								aria-label='city-name'
 								placeholder='Ex: Nashville'
 							/>
+							<Button onClick={handleSearch}>Search</Button>
 						</InputGroup>
-					</Col>
-					<Col sm={4}>
-						<Button onClick={handleSearch}>Search</Button>
 					</Col>
 				</Row>
 			</Container>
