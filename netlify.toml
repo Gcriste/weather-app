@@ -1,1 +1,3 @@
-/weather-app/weather-app
+ base    = "/weather-app/"
+  publish = "/weather-app/"
+  command = "npm build"
