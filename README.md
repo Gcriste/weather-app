@@ -4,15 +4,15 @@
 
 > A weather app that can forecast the weather for the next 5 days based on a city that is searched by the user.
 
-## Table of Content
+## Table of Contents
 
-## [1-Installations and Dependencies](#Installations)
+### [Installations and Dependencies](#Installations)
 
-## [2-Usage](#Usage)
+### [Usage](#Usage)
 
-## [3-Contribution](#Contribution)
+### [Contribution](#Contribution)
 
-## [4-Deployable Link](#DeployableLink)
+### [Deployable Link](#DeployableLink)
 
 ## Installations
 
