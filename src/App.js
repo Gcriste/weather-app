@@ -2,20 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Header from './Components/Header';
 import Search from './Components/Search';
-import FirstRow from './Components/FirstRow';
-import List from './Components/List';
+import FirstRowAndTwelve from './Components/FirstRowAndTwelve';
+import FiveDays from './Components/FiveDays';
 import ModalContainer from './Components/ModalContainer';
 
 import './App.css';
 
 const App = () => {
-	// const startingData = [
-	// 	{ id: 1, title: 'test', description: 'test description', uvIndex: 'test uv', date: 'hi' },
-	// 	{ id: 2, title: 'test', description: 'test description', uvIndex: 'test uv', date: 'hi' },
-	// 	{ id: 3, title: 'test', description: 'test description', uvIndex: 'test uv', date: 'hi' },
-	// 	{ id: 4, title: 'test', description: 'test description', uvIndex: 'test uv', date: 'hi' },
-	// 	{ id: 5, title: 'test', description: 'test description', uvIndex: 'test uv', date: 'hi' }
-	// ];
 	const [cityName, setCityName] = useState('');
 	const [weatherFirstData, setWeatherFirstData] = useState('');
 	const [previouslySearchedCity, setPreviouslySearchedCity] = useState([weatherFirstData]);
@@ -31,7 +24,6 @@ const App = () => {
 
 	const handleKeyDown = (e) => {
 		if (e.key === 'Enter') {
-			console.log('click');
 			handleSearch();
 		}
 	};
@@ -102,7 +94,7 @@ const App = () => {
 					handleChange={handleChange}
 					cityName={cityName}
 				/>
-				<FirstRow
+				<FirstRowAndTwelve
 					weatherData={weatherFirstData}
 					weatherAllData={weatherAllData}
 					previouslySearchedCities={previouslySearchedCity}
@@ -110,7 +102,7 @@ const App = () => {
 					handleClearCities={handleClearCities}
 				/>
 				{showModal ? <ModalContainer show={showModal} handleClose={handleClose} /> : null}
-				<List weatherData={weatherAllData} />
+				<FiveDays weatherData={weatherAllData} />
 			</Container>
 		</Container>
 	);

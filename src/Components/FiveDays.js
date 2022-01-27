@@ -5,6 +5,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './Component.css';
 import { fromUnixTime, format } from 'date-fns';
+// import { Swiper, SwiperSlide } from 'swiper/react';
+
+// // Import Swiper styles
+// import 'swiper/css';
+// import 'swiper/css/navigation';
+
+// // import Swiper core and required modules
+// import SwiperCore, { Navigation } from 'swiper';
+
+// // install Swiper modules
+// SwiperCore.use([Navigation]);
 
 const List = ({ weatherData }) => {
 	let fiveDays =
@@ -15,12 +26,14 @@ const List = ({ weatherData }) => {
 			<Container>
 				<Row>
 					<h2>Next 5 Days</h2>
+					{/* <Swiper navigation={true} className='mySwiper'> */}
 					{fiveDays.map((item) => (
+						// <SwiperSlide>
 						<Col className='list-card-container' key={item.dt} sm={4}>
 							<Card>
 								<Card.Body>
 									<Card.Title>
-										{format(new Date(fromUnixTime(item.dt).toString()), 'MM/dd/yyyy')}
+										{format(new Date(fromUnixTime(item.dt).toString()), 'MMMM dd, yyyy')}
 									</Card.Title>
 									<Card.Subtitle className='mb-2 text-muted'>
 										{item.weather[0].description}
@@ -36,7 +49,9 @@ const List = ({ weatherData }) => {
 								</Card.Body>
 							</Card>
 						</Col>
+						// </SwiperSlide>
 					))}
+					{/* </Swiper> */}
 				</Row>
 			</Container>
 		</>

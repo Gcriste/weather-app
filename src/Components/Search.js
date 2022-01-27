@@ -11,9 +11,9 @@ const Search = ({ handleSearch, handleChange, cityName, handleKeyDown }) => {
 		<>
 			<Container>
 				<Row>
-					<Col sm={8}>
+					<Col sm={12} lg={12}>
 						<InputGroup className='mb-3'>
-							<InputGroup.Text>Search for a city</InputGroup.Text>
+							<InputGroup.Text className='search-side-text'>Search for a city</InputGroup.Text>
 							<FormControl
 								onChange={(e) => handleChange(e)}
 								onKeyDown={(e) => handleKeyDown(e)}
