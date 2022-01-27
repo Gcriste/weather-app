@@ -24,7 +24,10 @@ const List = ({ weatherData }) => {
 									<Card.Text>Average temp: {item.temp.day} &#8457;</Card.Text>
 									<Card.Text>Wind speed: {item.wind_speed} mph</Card.Text>
 									<Card.Text>
-										<img src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`} />
+										<img
+											alt={item.weather[0].icon}
+											src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+										/>
 									</Card.Text>
 								</Card.Body>
 							</Card>

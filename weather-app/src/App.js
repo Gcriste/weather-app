@@ -74,7 +74,7 @@ const App = () => {
 			setShowModal(true);
 			setCityName('');
 		}
-	}, [weatherFirstData]);
+	}, [weatherFirstData, previouslySearchedCity, callOtherRequest]);
 
 	const callOtherRequest = () => {
 		const lat = weatherFirstData.city.coord.lat;
