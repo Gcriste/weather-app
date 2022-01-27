@@ -21,6 +21,37 @@
 	/* border-bottom: 1px solid #005b8f; */
 }
 
+.time-container {
+	display: flex;
+	flex-wrap: wrap;
+}
+.each-hour {
+	border: 1px solid grey;
+	text-align: center;
+	margin-left: 6px;
+	margin-right: 6px;
+	border-radius: 3px;
+	margin-top: 2px;
+	box-shadow: 3px 2px 3px 2px rgba(33, 33, 33, 0.4);
+}
+
+.bold-text-title {
+	font-size: 60px;
+	font-weight: bold;
+}
+.bold-text {
+	font-weight: bold;
+}
+
+.top-margin-container {
+	margin-top: 15px;
+}
+.accordion-override button {
+	padding: 0.5rem 0.75rem !important;
+}
+.accordion-body {
+	padding: 0.5rem 0.75rem !important;
+}
 .App-logo {
 	height: 40vmin;
 	pointer-events: none;

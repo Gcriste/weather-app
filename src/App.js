@@ -34,7 +34,6 @@ const App = () => {
 			console.log('click');
 			handleSearch();
 		}
-		console.log(e);
 	};
 	const handleSearch = () => {
 		cityName
@@ -84,10 +83,14 @@ const App = () => {
 		}
 	}, [weatherFirstData]); // eslint-disable-line react-hooks/exhaustive-deps
 
-	// useEffect(() => {
-	// 	console.log(responseData);
-	// 	setWeatherAllData(responseData);
-	// }, [weatherFirstData]);
+	const handleClearCities = () => {
+		setCityName('');
+		setPreviouslySearchedCity(['']);
+		setWeatherFirstData('');
+		setWeatherAllData('');
+		setContainerClassName('');
+		localStorage.setItem('cities', JSON.stringify(previouslySearchedCity));
+	};
 
 	return (
 		<Container className={containerClassName}>
@@ -101,8 +104,10 @@ const App = () => {
 				/>
 				<FirstRow
 					weatherData={weatherFirstData}
+					weatherAllData={weatherAllData}
 					previouslySearchedCities={previouslySearchedCity}
 					handleClickCity={(e) => handleClickCity(e)}
+					handleClearCities={handleClearCities}
 				/>
 				{showModal ? <ModalContainer show={showModal} handleClose={handleClose} /> : null}
 				<List weatherData={weatherAllData} />

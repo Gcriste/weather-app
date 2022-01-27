@@ -7,11 +7,15 @@ import './Component.css';
 import { fromUnixTime, format } from 'date-fns';
 
 const List = ({ weatherData }) => {
-	return weatherData && weatherData?.daily?.length ? (
+	let fiveDays =
+		weatherData && weatherData?.daily?.length ? weatherData.daily.filter((item, index) => index < 5) : [];
+
+	return fiveDays && fiveDays.length ? (
 		<>
 			<Container>
 				<Row>
-					{weatherData.daily.map((item) => (
+					<h2>Next 5 Days</h2>
+					{fiveDays.map((item) => (
 						<Col className='list-card-container' key={item.dt} sm={4}>
 							<Card>
 								<Card.Body>
@@ -21,7 +25,7 @@ const List = ({ weatherData }) => {
 									<Card.Subtitle className='mb-2 text-muted'>
 										{item.weather[0].description}
 									</Card.Subtitle>
-									<Card.Text>Average temp: {item.temp.day} &#8457;</Card.Text>
+									<Card.Text>Average temp: {Math.round(item.temp.day)} &#8457;</Card.Text>
 									<Card.Text>Wind speed: {item.wind_speed} mph</Card.Text>
 									<Card.Text>
 										<img
