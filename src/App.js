@@ -16,7 +16,7 @@ const App = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [containerClassName, setContainerClassName] = useState('');
 
-	const apiKey = 'c9a9ed03a355403f4cb9a36e931c0b4a';
+	const apiKey = '13119145d21b8c993842cb2808e0a390';
 
 	const handleChange = (e) => {
 		setCityName(e.target.value);
