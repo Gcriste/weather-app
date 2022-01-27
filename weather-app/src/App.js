@@ -56,6 +56,14 @@ const App = () => {
 			.then((data) => setWeatherFirstData(data));
 	};
 
+	const callOtherRequest = () => {
+		const lat = weatherFirstData.city.coord.lat;
+		const lon = weatherFirstData.city.coord.lon;
+		fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`)
+			.then((response) => response.json())
+			.then((data) => setWeatherAllData(data));
+	};
+
 	useEffect(() => {
 		if (weatherFirstData && weatherFirstData.cod !== '404') {
 			callOtherRequest();
@@ -74,15 +82,7 @@ const App = () => {
 			setShowModal(true);
 			setCityName('');
 		}
-	}, [weatherFirstData, previouslySearchedCity, callOtherRequest]);
-
-	const callOtherRequest = () => {
-		const lat = weatherFirstData.city.coord.lat;
-		const lon = weatherFirstData.city.coord.lon;
-		fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`)
-			.then((response) => response.json())
-			.then((data) => setWeatherAllData(data));
-	};
+	}, [weatherFirstData]); // eslint-disable-line react-hooks/exhaustive-deps
 
 	// useEffect(() => {
 	// 	console.log(responseData);
