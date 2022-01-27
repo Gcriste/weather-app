@@ -36,4 +36,4 @@ If you have additional questions, please contact me using the links below:
 
 [Github](https://github.com/gcriste)
 
-[Email](griffincriste@gmail.com)
+[Email](mailto:griffincriste@gmail.com)
