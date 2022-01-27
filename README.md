@@ -28,7 +28,7 @@
 
 ## DeployableLink
 
-[Link](https://61f1faccf1bdc310a5caa555--mystifying-tereshkova-c85a7c.netlify.app/)
+[Link](https://mystifying-tereshkova-c85a7c.netlify.app/)
 
 ## Questions
 
