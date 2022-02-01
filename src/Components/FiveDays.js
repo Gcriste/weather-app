@@ -25,33 +25,40 @@ const List = ({ weatherData }) => {
 		<>
 			<Container>
 				<Row>
-					<h2>Next 5 Days</h2>
-					{/* <Swiper navigation={true} className='mySwiper'> */}
-					{fiveDays.map((item) => (
-						// <SwiperSlide>
-						<Col className='list-card-container' key={item.dt} sm={4}>
-							<Card>
-								<Card.Body>
-									<Card.Title>
-										{format(new Date(fromUnixTime(item.dt).toString()), 'MMMM dd, yyyy')}
-									</Card.Title>
-									<Card.Subtitle className='mb-2 text-muted'>
-										{item.weather[0].description}
-									</Card.Subtitle>
-									<Card.Text>Average temp: {Math.round(item.temp.day)} &#8457;</Card.Text>
-									<Card.Text>Wind speed: {item.wind_speed} mph</Card.Text>
-									<Card.Text>
-										<img
-											alt={item.weather[0].icon}
-											src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
-										/>
-									</Card.Text>
-								</Card.Body>
-							</Card>
-						</Col>
-						// </SwiperSlide>
-					))}
-					{/* </Swiper> */}
+					<Col sm={12}>
+						<Card>
+							<Card.Body>
+								<h2>Next 5 Days</h2>
+								<hr></hr>
+								{/* <Swiper navigation={true} className='mySwiper'> */}
+								{fiveDays.map((item) => (
+									// <SwiperSlide>
+
+									<Card>
+										<Card.Body>
+											<Card.Title>
+												{format(new Date(fromUnixTime(item.dt).toString()), 'EEEE, MMMM dd')}
+											</Card.Title>
+											<Card.Subtitle className='mb-2 text-muted'>
+												{item.weather[0].description}
+											</Card.Subtitle>
+											<Card.Text>Average temp: {Math.round(item.temp.day)} &#8457;</Card.Text>
+											<Card.Text>Wind speed: {item.wind_speed} mph</Card.Text>
+											<Card.Text className='five-day-img'>
+												<img
+													alt={item.weather[0].icon}
+													src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+												/>
+											</Card.Text>
+										</Card.Body>
+									</Card>
+
+									// </SwiperSlide>
+								))}
+								{/* </Swiper> */}
+							</Card.Body>
+						</Card>
+					</Col>
 				</Row>
 			</Container>
 		</>

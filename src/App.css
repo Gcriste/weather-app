@@ -54,6 +54,10 @@
 	padding-bottom: 5px;
 }
 
+.five-day-img {
+	text-align: center;
+}
+
 @media screen and (max-width: 539px) {
 	.search-side-text {
 		display: none;
