@@ -15,6 +15,7 @@ const App = () => {
 	const [weatherAllData, setWeatherAllData] = useState('');
 	const [showModal, setShowModal] = useState(false);
 	const [containerClassName, setContainerClassName] = useState('');
+	const [loading, setLoading] = useState(false);
 
 	const apiKey = '13119145d21b8c993842cb2808e0a390';
 
@@ -28,16 +29,21 @@ const App = () => {
 		}
 	};
 	const handleSearch = () => {
-		cityName
-			? fetch(
-					`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&cnt=${6}&appid=${apiKey}&units=imperial`
-			  )
-					.then((response) => response.json())
-					.then((data) => setWeatherFirstData(data))
-			: setShowModal(true);
-		setCityName('');
+		if (cityName) {
+			setLoading(true);
+			fetch(
+				`https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&cnt=${6}&appid=${apiKey}&units=imperial`
+			)
+				.then((response) => response.json())
+				.then((data) => setWeatherFirstData(data))
+				.then(() => setLoading(false));
+			setCityName('');
+		} else {
+			setShowModal(true);
+			setCityName('');
+		}
 	};
-
+	console.log(loading);
 	const handleClose = () => setShowModal(false);
 
 	const handleClickCity = (e) => {
@@ -93,6 +99,7 @@ const App = () => {
 					handleSearch={handleSearch}
 					handleChange={handleChange}
 					cityName={cityName}
+					loading={loading}
 				/>
 				<FirstRowAndTwelve
 					weatherData={weatherFirstData}
@@ -100,9 +107,10 @@ const App = () => {
 					previouslySearchedCities={previouslySearchedCity}
 					handleClickCity={(e) => handleClickCity(e)}
 					handleClearCities={handleClearCities}
+					loading={loading}
 				/>
 				{showModal ? <ModalContainer show={showModal} handleClose={handleClose} /> : null}
-				<FiveDays weatherData={weatherAllData} />
+				<FiveDays weatherData={weatherAllData} loading={loading} />
 			</Container>
 		</Container>
 	);

@@ -7,8 +7,16 @@ import PreviouslySearched from './PreviouslySearched';
 import Accordion from 'react-bootstrap/Accordion';
 import TwelveHours from './TwelveHours';
 import { fromUnixTime, format } from 'date-fns';
+import Skeleton from '@mui/material/Skeleton';
 
-const FirstRow = ({ weatherData, weatherAllData, previouslySearchedCities, handleClickCity, handleClearCities }) => {
+const FirstRow = ({
+	weatherData,
+	weatherAllData,
+	previouslySearchedCities,
+	handleClickCity,
+	handleClearCities,
+	loading
+}) => {
 	const cityName =
 		weatherData && weatherData?.city?.name ? `http://www.google.com/search?q=${weatherData.city.name}` : '#';
 
@@ -133,8 +141,164 @@ const FirstRow = ({ weatherData, weatherAllData, previouslySearchedCities, handl
 				</Row>
 			</Container>
 		</>
+	) : loading ? (
+		<Container>
+			<Row>
+				<Col className='first-row-container' sm={8}>
+					<Card>
+						<Card.Body>
+							<h2>Current Weather</h2>
+							<hr></hr>
+							<Row>
+								<Col sm={6}>
+									<Card.Title>
+										<Skeleton variant='text' />
+									</Card.Title>
+									<Card.Title>
+										<Skeleton variant='text' />
+									</Card.Title>
+									<Card.Text>
+										<Skeleton variant='text' />
+									</Card.Text>
+									<Card.Subtitle className='mb-2 text-muted'>
+										<Skeleton variant='text' />
+									</Card.Subtitle>
+									<Row>
+										<Col className='bottom-padding' sm={4}>
+											<Card.Text>
+												<Skeleton variant='text' />
+											</Card.Text>
+										</Col>
+										<Col className='bottom-padding' sm={4}>
+											<Card.Text>
+												<Skeleton variant='text' />
+											</Card.Text>
+										</Col>
+									</Row>
+									<Card.Link href={'/'} target='_blank'>
+										<Skeleton variant='text' />
+									</Card.Link>
+								</Col>
+								<Col sm={6}>
+									{' '}
+									<Accordion className='top-margin-container'>
+										<Accordion.Item eventKey='0'>
+											<Accordion.Header className='accordion-override'>
+												<Skeleton variant='text' />
+											</Accordion.Header>
+											<Accordion.Body className='accordion-override'>Wind Speed</Accordion.Body>
+											<Accordion.Body className='accordion-override'>Humidity</Accordion.Body>
+											<Accordion.Body className='accordion-override'>UV index</Accordion.Body>
+											<Accordion.Body className='accordion-override'>
+												<Row>
+													<Col sm={6}>
+														{/* {getSunriseOrMoonriseLabel(weatherAllData)}{' '}
+															{getSunriseOrMoonrise(weatherAllData)} */}
+													</Col>
+													<Col sm={6}>
+														{/* {getSunsetOrMoonsetLabel(weatherAllData)}{' '}
+															{getSunsetOrMoonset(weatherAllData)} */}
+													</Col>
+												</Row>
+											</Accordion.Body>
+											{/* <Accordion.Body className='accordion-override'>
+													Wind Speed: {weatherData.list[0].wind.speed} mph
+												</Accordion.Body> */}
+										</Accordion.Item>
+									</Accordion>
+								</Col>
+							</Row>
+						</Card.Body>
+					</Card>
+				</Col>
+
+				<Col className='first-row-container' sm={4}>
+					<PreviouslySearched
+						previouslySearchedCities={previouslySearchedCities}
+						handleClickCity={handleClickCity}
+						handleClearCities={handleClearCities}
+					/>
+				</Col>
+			</Row>
+			<Row>
+				<Col className='first-row-container' sm={12}>
+					<TwelveHours weatherAllData={weatherAllData} />
+				</Col>
+			</Row>
+		</Container>
 	) : (
-		<div></div>
+		<Container>
+			<Row>
+				<Col className='first-row-container' sm={8}>
+					<Card>
+						<Card.Body>
+							<h2>Current Weather</h2>
+							<hr></hr>
+							<Row>
+								<Col sm={6}>
+									<Card.Title>City name</Card.Title>
+									<Card.Title>Temperature &#8457;</Card.Title>
+									<Card.Text>Feels &#8457;</Card.Text>
+									<Card.Subtitle className='mb-2 text-muted'>Description</Card.Subtitle>
+									<Row>
+										<Col className='bottom-padding' sm={4}>
+											<Card.Text>Day Temperature &#8457;</Card.Text>
+										</Col>
+										<Col className='bottom-padding' sm={4}>
+											<Card.Text>Night Temperature &#8457;</Card.Text>
+										</Col>
+									</Row>
+									<Card.Link href={'/'} target='_blank'>
+										Find out more about the city name
+									</Card.Link>
+								</Col>
+								<Col sm={6}>
+									{' '}
+									<Accordion className='top-margin-container'>
+										<Accordion.Item eventKey='0'>
+											<Accordion.Header className='accordion-override'>
+												More details
+											</Accordion.Header>
+											<Accordion.Body className='accordion-override'>Wind Speed</Accordion.Body>
+											<Accordion.Body className='accordion-override'>Humidity</Accordion.Body>
+											<Accordion.Body className='accordion-override'>UV index</Accordion.Body>
+											<Accordion.Body className='accordion-override'>
+												<Row>
+													<Col sm={6}>
+														{/* {getSunriseOrMoonriseLabel(weatherAllData)}{' '}
+													{getSunriseOrMoonrise(weatherAllData)} */}
+													</Col>
+													<Col sm={6}>
+														{/* {getSunsetOrMoonsetLabel(weatherAllData)}{' '}
+													{getSunsetOrMoonset(weatherAllData)} */}
+													</Col>
+												</Row>
+											</Accordion.Body>
+											{/* <Accordion.Body className='accordion-override'>
+											Wind Speed: {weatherData.list[0].wind.speed} mph
+										</Accordion.Body> */}
+										</Accordion.Item>
+									</Accordion>
+								</Col>
+							</Row>
+						</Card.Body>
+					</Card>
+				</Col>
+
+				<Col className='first-row-container' sm={4}>
+					<PreviouslySearched
+						previouslySearchedCities={previouslySearchedCities}
+						handleClickCity={handleClickCity}
+						handleClearCities={handleClearCities}
+					/>
+				</Col>
+			</Row>
+			<Row>
+				<Col className='first-row-container' sm={12}>
+					<TwelveHours weatherAllData={weatherAllData} />
+				</Col>
+			</Row>
+		</Container>
 	);
 };
 

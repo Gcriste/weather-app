@@ -90,7 +90,59 @@ const List = ({ weatherData }) => {
 			</Container>
 		</>
 	) : (
-		<div></div>
+		<Container>
+			<Row>
+				<Col sm={12}>
+					<Card className='twelve-hour-container'>
+						<Card.Body>
+							<h2>Next 5 Days</h2>
+							<hr></hr>
+							{/* <Swiper navigation={true} className='mySwiper'> */}
+							<div className='five-day-container'>
+								<Swiper
+									navigation={true}
+									breakpoints={{
+										640: {
+											slidesPerView: 2,
+											spaceBetween: 20
+										},
+										768: {
+											slidesPerView: 3,
+											spaceBetween: 20
+										},
+										1024: {
+											slidesPerView: 5,
+											spaceBetween: 20
+										},
+										1296: {
+											slidesPerView: 5,
+											spaceBetween: 20
+										}
+									}}
+								>
+									{[...Array(5)].map((item, index) => (
+										// <SwiperSlide>
+										<SwiperSlide key={index}>
+											<div className='each-day'>
+												<Card.Text>Date</Card.Text>
+												<Card.Subtitle className='mb-2 text-muted'>condition</Card.Subtitle>
+												<Card.Text>Average temp &#8457;</Card.Text>
+												<Card.Text>Wind speed</Card.Text>
+												<Card.Text className='five-day-img'>
+													<img alt='img placeholder' src={``} />
+												</Card.Text>
+											</div>
+										</SwiperSlide>
+
+										// </SwiperSlide>
+									))}
+								</Swiper>
+							</div>
+						</Card.Body>
+					</Card>
+				</Col>
+			</Row>
+		</Container>
 	);
 };
 
