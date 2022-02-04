@@ -242,10 +242,10 @@ const FirstRow = ({
 									<Card.Subtitle className='mb-2 text-muted'>Description</Card.Subtitle>
 									<Row>
 										<Col className='bottom-padding' sm={4}>
-											<Card.Text>Day Temperature &#8457;</Card.Text>
+											<Card.Text>Day Temp</Card.Text>
 										</Col>
 										<Col className='bottom-padding' sm={4}>
-											<Card.Text>Night Temperature &#8457;</Card.Text>
+											<Card.Text>Night Temp</Card.Text>
 										</Col>
 									</Row>
 									<Card.Link href={'/'} target='_blank'>
